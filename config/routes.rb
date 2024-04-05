@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
   get 'users/index'
+  get 'users/follower'
+  get 'users/follow_request'
+  # get 'users/:id', to: 'users#show', constraints: { id: /\d/ }
   devise_for :users
-  devise_scope :user do
-    get '/users/sign_out' => 'devise/sessions#destroy'
+  devise_scope :user do  
+    get '/users/sign_out' => 'devise/sessions#destroy'     
   end
+  resources :users, constraints: { id: /[0-9]+/ }
   get 'home/index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

@@ -1,11 +1,17 @@
+<%= render "/layouts/navbar" %>
 <h1>All users of this social sites</h1>
 <% @users.each do |user|%>
     <%if user != current_user%>
         <%= user.user_name%> 
-        <%if type="unfollow"%>
-            <%= button_to "follow"%><br>
+        <%if value=""%>
+            <%= form_with model: @follow, url: users_follow_request_path, method: "GET" do |form| %>
+                <%= form.hidden_field :request_by_id, value: current_user.id %>
+                <%= form.hidden_field :request_to_id, value: user.id %>
+                <%= form.submit "send follow request"%><br>
+            <% end %>   
         <%else%>
             <%= button_to "unfollow"%><br>
         <%end%>
+
     <%end%>
 <%end%>
