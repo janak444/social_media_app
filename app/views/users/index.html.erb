@@ -1,5 +1,8 @@
 <%= render "/layouts/navbar" %>
 <h1>All users of this social sites</h1>
+<%if current_user==nil%>
+    <p>Please Sign in to see the users of this applications</p>
+<%else%>
 <% @users.each do |user|%>
     <%if user != current_user%>
         <%= user.user_name%> 
@@ -14,4 +17,5 @@
         <%end%>
 
     <%end%>
+<%end%>
 <%end%>

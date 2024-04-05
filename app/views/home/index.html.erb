@@ -1,2 +1,11 @@
 
 <%= render "/layouts/navbar" %>
+<% @posts.each do |post|%>
+    <p><%= post.title%></p>
+    <p>
+    <%= post.images.attach(params[:images]).each do |image| %>
+        <%= image%>
+    <%end%>
+    </p>
+    <p><%= post.content%></p>
+<%end%>

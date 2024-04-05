@@ -1,7 +1,7 @@
 <%= render "/layouts/navbar" %>
 <h1> Your profile detail: </h1>
 <p>UserName: <%= current_user.user_name%></p>
-<p>Email: <%= current_user.user_name%></p>
+<p>Email: <%= current_user.email%></p>
 <h2>Notifications</h2>
 <% @request_bys.each do |follow|%>
 <% if follow.request_to_id%>

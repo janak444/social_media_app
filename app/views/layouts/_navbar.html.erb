@@ -12,9 +12,11 @@
         <span class="nav-link "  role="button"  aria-expanded="false"><%= link_to "Users", users_index_path%> </span>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link"  role="button">
+       <%if current_user != nil%>
+        <a class="nav-link" href = "<%= user_path(current_user.id)%>">
          <img class="rounded-circle shadow-4-strong" width="50" height="50" alt="avatar2" src="https://mdbcdn.b-cdn.net/img/new/avatars/1.webp"/>
         </a>
+        <%end%>
       </li>
       <li class="nav-item">
           <span class="nav-link "  role="button"  aria-expanded="false">

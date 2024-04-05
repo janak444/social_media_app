@@ -1,0 +1,9 @@
+<%= form_with model: @post, url: "/posts" do |f| %>
+    <%= f.label :title%>
+    <%= f.text_field :title, placeholder: 'Enter article title here' %><br><br><br>
+     <%= f.label :images, "Select a Image:"%>
+    <%= f.file_field :images %><br><br><br>
+     <%= f.label :content, "Place a Content here"%>
+    <%= f.text_area :content, placeholder: "Enter article content here"%><br><br><br>
+    <%= f.submit "post" %>
+<% end %>
