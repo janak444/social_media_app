@@ -1,4 +1,5 @@
 class Post < ApplicationRecord
-    belongs_to :user, foreign_key: 'user_id'
-    has_many_attached :images
+  belongs_to :user, foreign_key: 'user_id'
+  has_many_attached :images
+  has_many :comments
 end

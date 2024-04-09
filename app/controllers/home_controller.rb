@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
-  def index
-    
+  def index 
     @posts = Post.all
-    debugger
+    @comment = Comment.new
+ 
   end
 end
