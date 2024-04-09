@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get 'users/follow_request'
 
   resources :posts do
-    resources :comments
+    resources :comments, :likes, :follows
   end
   devise_for :users
   devise_scope :user do

@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @post = Post.new
     @user = User.find(current_user.id)
     @request_bys = Follow.where(user_id: current_user.id)
     @request_tos = Follow.where(request_to_id: current_user.id)
@@ -19,7 +20,7 @@ class UsersController < ApplicationController
     @follow.user_id = current_user.id
     return unless @follow.save
 
-    redirect_to user_path(@follow.id.to_i)
+    redirect_to user_path(@follow)
   end
 
   def following

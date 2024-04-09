@@ -8,4 +8,5 @@ class User < ApplicationRecord
   has_many :followings
   has_many :posts
   has_many :comments
+  has_many :like, dependent: :destroy
 end

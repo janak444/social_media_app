@@ -5,8 +5,9 @@
 <%else%>
 <% @users.each do |user|%>
     <%if user != current_user%>
-        <%= user.user_name%> 
-        <%if value=""%>
+        <%= user.user_name%>
+        <%pre_send_request = Follow.where(request_by_id: current_user.id, request_to_id: user.id)%> 
+        <%if !pre_send_request%>
             <%= form_with model: @follow, url: users_follow_request_path, method: "GET" do |form| %>
                 <%= form.hidden_field :request_by_id, value: current_user.id %>
                 <%= form.hidden_field :request_to_id, value: user.id %>

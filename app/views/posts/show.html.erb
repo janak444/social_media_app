@@ -6,7 +6,12 @@
     <%end%>
     </p>
     <p><%= @post.content%></p>
-    <hr>
+    <% pre_like = @post.likes.find { |like| like.user_id == current_user.id} %>
+    <% if pre_like %>
+      <%= button_to 'Unlike', post_like_path(@post, pre_like), method: :delete %>
+    <% else %>
+      <%= button_to 'Like', post_likes_path(@post), method: :post %>
+    <% end %>
 <h6>Comments</h6>
 <hr>
 <% if @comments.any? %>
@@ -14,16 +19,19 @@
     <div>
       <p><%= comment.body %></p>
       <%if current_user != nil%>
-        <% if comment.user_id == current_user.id || @post.user_id == current_user.id%>
+        <% if comment.user_id == current_user.id || @post.user_id == current_user.id %>
           <%= button_to "Destroy this comment", post_comment_path(@post, comment), method: :delete, class: "btn btn-danger", form: { data: { turbo_confirm: "Are you sure?" } } %>
         <%end%>
-        <h5>Add a new comment</h5>
-        <%= render partial: "posts/comment_form", locals: { post: @post } %>
-      <%else%>
-          <p>Please login to comment this post</p>
       <%end%>
     </div>
   <% end %>
 <% else %>
   <p>No comments found.</p>
 <% end %>
+
+<%if current_user != nil%>
+  <h5>Add a new comment</h5>
+  <%= render partial: "posts/comment_form", locals: { post: @post } %>
+<%else%>
+    <p>Please login to comment this post</p>
+<%end%>

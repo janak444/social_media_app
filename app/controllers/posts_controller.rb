@@ -1,9 +1,5 @@
 class PostsController < ApplicationController
  
-  def new
-    @post = Post.new
-  end
-
   def create
     @comment = Comment.new
     @post = Post.new(post_params)
@@ -12,7 +8,7 @@ class PostsController < ApplicationController
       @comment.post_id = @post.id
       redirect_to root_path(@post)
     else
-      render 'new'
+      render ''
     end
   end
 
