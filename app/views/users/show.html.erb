@@ -3,18 +3,42 @@
 <h1> Your profile detail: </h1>
 <p>UserName: <%= current_user.user_name%></p>
 <p>Email: <%= current_user.email%></p>
+<%if @posts.any?%>
+<h2>The post you have created are:</h2>
+<% @posts.each do |post|%>
+    
+    <p><%= post.title%></p>
+    <p>
+    <a href = "<%= post_path(post.id)%>">
+    <% post.images.attach(params[:images]).map do |image| %>
+       <%= image_tag image.representation(resize_to_limit: [300, 300])%>
+    <%end%>
+     </a>
+    </p>
+    <p><%= post.content%></p>
+    <p><%= post.likes.count %> <%= (post.likes.count) == 1 ? 'Like' : 'Likes'%></p>
+    <h6>Comments</h6>
+    <% post.comments.map do |comment|%>
+    <%= comment.body%><br>
+    <%end%>
+   <hr>
+<%end%>
+<%end%>
 <h2>Notifications</h2>
 <% @request_bys.each do |follow|%>
 <% if follow.request_to_id%>
 <p> You have successfully send the friend request to: <%=User.find(follow.request_to_id).user_name %></p>
-<%= button_to 'Undo', post_likes_path(@post), method: :post %>
+<%= button_to 'Undo', user_follow_path(User.find(follow.request_to_id).id, follow.id), method: :delete, form: {data: {turbo_confirm: "Are you sure?"}} %>
 <%end%>
 <%end%>
 <hr>
 <%@request_tos.each do |follow|%>
 <% if follow.request_by_id !=current_user.id%>
 <p>  friend request has been sent by: <%=User.find(follow.request_by_id).user_name %></p>
-<%= button_to 'Accept', post_likes_path(@post), method: :post %>
-<%= button_to 'Reject', post_like_path(@post, pre_like), method: :delete %>
+<%debugger%>
+<%if current_user.followers.include?(follow.follower_id)%>
+<%= button_to 'Accept', user_follow_path(current_user.id , follow), method: :put%>
+<%= button_to 'Reject',user_follow_path(User.find(follow.request_by_id).id, follow.id), method: :delete,form: {data: {turbo_confirm: "Are you sure?", disable_with: 'loading..'}} %>
 <%end%>
 <%end%>
+<%end%>  
